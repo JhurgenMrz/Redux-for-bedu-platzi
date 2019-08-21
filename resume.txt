@@ -1,0 +1,26 @@
+Principios de Redux
+
+Los pilares de redux son:
+
+Store
+(almacenamiento) (Estado global)
+
+Reducers
+(Estado)
+
+Actions Creators
+(Funciones)
+
+Es quien pide información (promesas)
+
+Componentes
+(Código JSX)
+
+La manera en que trabaja es un ciclo donde:
+
+Component =>    se comunica con el 
+Action =>       se va al reducer y la da informacion que necesita
+Reducers => Regresa al componente con el nuevo estado
+El componente con el virtual DOM sabe que cambiar y se repite el proceso
+
+Durante todo este proceso esta en ALMACENAMIENTO el estado global, sobre el cual se fluye

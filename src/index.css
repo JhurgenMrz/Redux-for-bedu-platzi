@@ -1,0 +1,37 @@
+body{
+    background: rgb(247, 247, 247);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.App h1{
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+.App table{
+    margin-left: 2rem;
+    margin-top: 3rem;
+}
+.table-users {
+    width: 100%;
+    text-align: left;
+}
+.table-users thead tr th{
+    padding: 10px 10px;
+    margin: 0 0;
+}
+.table-users tbody tr td{
+    padding: 10px 10px;
+    margin: 0 0;
+}
+.Menu{
+    background-color: #253A46;
+    padding: 20px;
+    font-size: 20px;
+    
+}
+.Menu a{
+    color: #fff;
+    padding-right:50px;
+    text-decoration: none; 
+}
