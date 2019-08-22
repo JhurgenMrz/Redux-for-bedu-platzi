@@ -2,12 +2,17 @@ import React,{useEffect} from 'react'
 import {connect} from 'react-redux'
 
 import * as usersActions from '../../actions/usersActions'
+import * as postsActions from '../../actions/postsActions'
+
+const { getAll: usersGetAll} = usersActions;
+const { getAllPosts: postsGetAll} = postsActions;
 
 const Posts = (props) => {
 
     useEffect(()=>{
-        if(!props.users.length){
-            props.getAll()
+        if(!props.usersReducer.users.length){
+            props.usersGetAll()
+
         }
     },[])
 
@@ -20,9 +25,14 @@ const Posts = (props) => {
     )
 }
 
-const mapStateToProps =(reducers)=>{
-    return reducers.usersReducer
+const mapStateToProps =({usersReducer, postsReducer})=>{
+    return {usersReducer, postsReducer};
 }
 
-export default connect(mapStateToProps,usersActions)(Posts)
+const mapDispatchToProps = {
+    usersGetAll,
+    postsGetAll
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Posts)
 
