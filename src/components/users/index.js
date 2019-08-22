@@ -1,27 +1,29 @@
-import React,{useState,useEffect} from 'react'
-import axios from 'axios';
+import React,{useEffect} from 'react'
+import {connect} from 'react-redux';
+import Spinner from '../general/Spinner'
+import Fatal from '../general/Fatal'
 
-export const Users = () => {
+import * as usersActions from '../../actions/usersActions'
 
-    const [users,setUsers] = useState([])
-
-    
-
+const Users = (props) => {
     useEffect(()=>{
-       (async function(){
-            try{
-                const {data} = await axios.get('https://jsonplaceholder.typicode.com/users');
-                setUsers(data)
-            } catch(err){
-                console.log(err)
-            }
-       })()
+    props.getAll()
+    
     },[])
 
-    return (
-        <div className="App">
+    const AllContent =()=>{
+
+        if(props.cargando){
+            return <Spinner/>
+        }
+        if(props.error){
+            return <Fatal message={props.error}/>
+        }
+        return (
+        <div className="User">
+
             <h1>Usuarios</h1>
-        
+            
             <table className="table-users">
                     <thead>
                     <tr>
@@ -32,7 +34,7 @@ export const Users = () => {
                     </thead>
                 <tbody>
                     {
-                        users.map((user, index)=>(
+                        props.users.map((user, index)=>(
                             <tr key={`row-${index}`}>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
@@ -42,7 +44,23 @@ export const Users = () => {
                     }
                 </tbody>
             </table>
+        </div>
+        )
+    }
+
+    return (
+    
+        <div className="App">
+            {
+                AllContent()
+            }
             
         </div>
     )
 }
+
+const mapStateToProps =( reducers)=>{
+    return reducers.usersReducer;
+}
+
+export default connect(mapStateToProps, usersActions )(Users);

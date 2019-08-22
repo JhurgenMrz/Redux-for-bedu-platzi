@@ -24,3 +24,32 @@ Reducers => Regresa al componente con el nuevo estado
 El componente con el virtual DOM sabe que cambiar y se repite el proceso
 
 Durante todo este proceso esta en ALMACENAMIENTO el estado global, sobre el cual se fluye
+
+
+
+¿Cómo conectar un componente de React a Redux ?
+
+Como puntos previos ya en esta clase debes tener instalado redux y haberlo configurado en el index.js de tu app
+
+Importa el método connect de React Redux
+
+import { connect } from "react-redux"
+
+Mapea el estado de redux a los props del componente llamando a los reducers que te interesen usar, en este caso para mi fue usersReducer
+const mapStateToProps = (reducers) => {
+
+  return reducers.usersReducer;
+
+}
+Exporta tu componente usando el método connect para tenerlo conectado a los reducers y actions de Redux.
+export default connect(mapStateToProps, {/*actions*/} )(Users);
+
+
+
+instalamos redux-thunk como un middleware para tener asincronia
+Lo importamos y despues no iniciamos en el index principal junto con el Store
+const store = createStore(
+    reducers, //Todos los reducers,
+    {}, //Estado inicial
+    applyMiddleware(reduxThunk)
+);
