@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Menu from './Menu'
 import Users from './users'
 import {Tasks} from './tasks'
+import Posts from './posts/index'
 
 export const App = () => {
     return (
@@ -11,6 +12,7 @@ export const App = () => {
             <div className="margin">
             <Route exact path='/' component={Users}/>
             <Route exact path='/tareas' component={ Tasks }/>
+            <Route exact path='/posts/:id' component={ Posts }/>
             </div>
         </BrowserRouter>
     )
