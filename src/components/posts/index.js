@@ -3,17 +3,19 @@ import {connect} from 'react-redux'
 
 import * as usersActions from '../../actions/usersActions'
 import * as postsActions from '../../actions/postsActions'
-
 const { getAll: usersGetAll} = usersActions;
-const { getAllPosts: postsGetAll} = postsActions;
+const { getById: postGetByUser} = postsActions;
 
 const Posts = (props) => {
 
     useEffect(()=>{
-        if(!props.usersReducer.users.length){
-            props.usersGetAll()
-
-        }
+        
+        (async ()=>{
+            if(!props.usersReducer.users.length){
+                await props.usersGetAll()
+             }
+             props.postGetByUser(props.match.params.id)
+        })()
     },[])
 
     return (
@@ -31,7 +33,7 @@ const mapStateToProps =({usersReducer, postsReducer})=>{
 
 const mapDispatchToProps = {
     usersGetAll,
-    postsGetAll
+    postGetByUser
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Posts)

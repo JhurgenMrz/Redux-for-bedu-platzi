@@ -8,7 +8,9 @@ import * as usersActions from '../../actions/usersActions'
 
 const Users = (props) => {
     useEffect(()=>{
-    props.getAll()
+        if(!props.users.length){
+            props.getAll()
+        }
     
     },[])
 
@@ -24,8 +26,11 @@ const Users = (props) => {
     }
 
     return (
-    
+        
         <div className="App">
+            {
+                console.log(props)
+            }
             {
                 AllContent()
             }

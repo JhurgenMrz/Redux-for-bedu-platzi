@@ -1,21 +1,20 @@
 import axios from 'axios';
-import {GET_ALL,CARGANDO,ERROR} from '../types/postsTypes'
+import {GET_BY_USER,CARGANDO,ERROR} from '../types/postsTypes'
 
-export const getAllPosts = () =>  async (dispatch)=>{
+export const getById =(key) => async (dispatch,getState)=> {
+    const {users} = getState().usersReducer;
+    const {posts} = getState().postsReducer;
+
+    const user_id = users[(key-1)].id
+    const respuesta = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`);
+    
+    const posts_Upteted = [
+        ...posts,
+        respuesta.data
+    ]
+
     dispatch({
-        type: CARGANDO
+        type: GET_BY_USER,
+        payload: posts_Upteted
     })
-    try{
-        const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        dispatch({
-        type: GET_ALL,
-        payload: data
-    })
-    }catch(error){
-        console.log('Error:', error.message);
-        dispatch({
-            type: ERROR,
-            payload: 'Algo salio mal, intente más tarde'
-        })
-    }
 }
