@@ -6,7 +6,7 @@ import Fatal from '../general/Fatal'
 import * as usersActions from '../../actions/usersActions'
 import * as postsActions from '../../actions/postsActions'
 const { getAll: usersGetAll} = usersActions;
-const { getByUser: postGetByUser} = postsActions;
+const { getByUser: postGetByUser, openClose} = postsActions;
 
 const Posts = (props) => {
 
@@ -77,13 +77,21 @@ const Posts = (props) => {
 
         const {posts_key} = users[parseInt(id-1)];
 
-        return posts[posts_key].map((post)=>(
-            <div className="post_title" key={post.id} onClick={()=>alert(post.id)}>
+        return showInfo(posts[posts_key],posts_key)
+    }
+
+
+    const showInfo = (posts, posts_key)=>(
+        posts.map((post, comm_key)=>(
+            <div className="post_title" key={post.id} onClick={()=>props.openClose(posts_key,comm_key)}>
                 <h2>{post.title}</h2>
                 <p>{post.body}</p>
+                {
+                    (post.open) ? 'Open' : 'Close'
+                }
             </div>
         ))
-    }
+    );
 
     return (
         <div>
@@ -108,7 +116,8 @@ const mapStateToProps =({usersReducer, postsReducer})=>{
 
 const mapDispatchToProps = {
     usersGetAll,
-    postGetByUser
+    postGetByUser,
+    openClose
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Posts)
