@@ -2,11 +2,16 @@ import React,{useEffect} from 'react'
 import {connect} from 'react-redux'
 import Spinner from '../general/Spinner'
 import Fatal from '../general/Fatal'
+import Comments from './Comments';
 
 import * as usersActions from '../../actions/usersActions'
 import * as postsActions from '../../actions/postsActions'
 const { getAll: usersGetAll} = usersActions;
-const { getByUser: postGetByUser, openClose} = postsActions;
+const { 
+    getByUser: postGetByUser, 
+    openClose,
+    getComments
+} = postsActions;
 
 const Posts = (props) => {
 
@@ -83,15 +88,23 @@ const Posts = (props) => {
 
     const showInfo = (posts, posts_key)=>(
         posts.map((post, comm_key)=>(
-            <div className="post_title" key={post.id} onClick={()=>props.openClose(posts_key,comm_key)}>
+            <div className="post_title" key={post.id} 
+                onClick={()=>showComments(posts_key, comm_key, post.comments)}>
                 <h2>{post.title}</h2>
                 <p>{post.body}</p>
                 {
-                    (post.open) ? 'Open' : 'Close'
+                    (post.open) ? <Comments comments={post.comments} /> : ''
                 }
             </div>
         ))
     );
+
+    const showComments =(posts_key,comm_key, comments)=>{
+        props.openClose(posts_key,comm_key);
+        if(!comments.length){
+            props.getComments(posts_key,comm_key);
+        }
+    }
 
     return (
         <div>
@@ -117,7 +130,8 @@ const mapStateToProps =({usersReducer, postsReducer})=>{
 const mapDispatchToProps = {
     usersGetAll,
     postGetByUser,
-    openClose
+    openClose,
+    getComments
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Posts)

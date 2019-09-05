@@ -4,8 +4,8 @@ import './Fatal.css'
 const Fatal = (props) => {
     return (
         <div className="Fatal">
-            <h1 className="Fatal">404 Error Page #1</h1>
-            <p className="Fatal zoom-area"><b>:C</b> {props.message}</p>
+            <h1 className="Fatal">404 Error Page</h1>
+            <p className="Fatal zoom-area"> 😕 {props.message}</p>
             <section className="Fatal error-container">
             <span className="Fatal"><span>4</span></span>
             <span className="Fatal">0</span>

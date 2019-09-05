@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Catamaran:400,800');
 .Fatal .error-container {
   text-align: center;
-  font-size: 180px;
+  font-size: 60px;
   font-family: 'Catamaran', sans-serif;
   font-weight: 800;
   margin: 20px 15px;
@@ -101,6 +101,7 @@
 }
 
 .Fatal h1 {
+  font-size: 24px;
   text-align: center;
   margin: 30px 15px;
 }

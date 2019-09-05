@@ -45,4 +45,32 @@ body{
 
 .post_title{
     border-top: 1px solid black;
+    cursor: pointer;
+}
+li{
+    margin: 15px 0 15px 0;
+}
+
+.conteiner-tasks{
+    font-size: 20px;
+    margin-left: 50px;
+    margin-bottom: 50px;
+}
+
+.task{
+    border-top: 1px solid black;
+}
+.task-page button{
+    border-radius: 12px;
+    height: 30px;
+    background-color: rgb(0, 62, 196);
+    border: 0px;
+    color: white;
+    font-size: 20px;
+}
+.task-page button a{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+    color:white;
 }
