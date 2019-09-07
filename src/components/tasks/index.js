@@ -9,8 +9,9 @@ import Fatal from '../general/Fatal'
 const Tasks = (props) => {
 
     useEffect(()=>{
-        props.getAllTasks();
-        console.log(props)
+        if(!Object.keys(props.tasks).length){
+            props.getAllTasks();
+        }
     },[])
     
     const showContent =()=>{

@@ -1,9 +1,17 @@
-import {GET_ALL_TASKS, CARGANDO,ERROR} from '../types/tasksTypes'
+import {
+    GET_ALL_TASKS, 
+    CARGANDO,
+    ERROR,
+    ADDED_TASK,
+    UPDATE_INPUTS
+    } from '../types/tasksTypes'
 
 const INITIAL_STATE = {
     tasks: {},
     cargando: false,
-    error: ''
+    error: '',
+    user_Id:'',
+    title:''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -20,6 +28,11 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, cargando: true};
         case ERROR: 
             return {...state, error: action.payload, cargando: false};
-        default: return state
+        case UPDATE_INPUTS:
+            return action.payload
+        case ADDED_TASK:
+            return {...state, tasks:{}, cargando: false, error: ''}
+        
+            default: return state
     }
 }
