@@ -72,3 +72,7 @@ export const saveTask = (newTask)=> async (dispatch)=>{
     }
     
 }
+
+export const edit = (taskEdited)=>(dispatch)=>{
+    console.log(taskEdited);
+}

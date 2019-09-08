@@ -11,7 +11,8 @@ const INITIAL_STATE = {
     cargando: false,
     error: '',
     user_Id:'',
-    title:''
+    title:'',
+    homeTask: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,7 +22,8 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 tasks: action.payload,
                 cargando: false,
-                error: ''
+                error: '',
+                homeTask: false,
             };
 
         case CARGANDO: 
@@ -31,7 +33,15 @@ export default (state = INITIAL_STATE, action) => {
         case UPDATE_INPUTS:
             return action.payload
         case ADDED_TASK:
-            return {...state, tasks:{}, cargando: false, error: ''}
+            return {
+                ...state, 
+                tasks:{}, 
+                cargando: false, 
+                error: '', 
+                homeTask: true,
+                user_Id: '',
+                title:'',
+            }
         
             default: return state
     }

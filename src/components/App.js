@@ -15,6 +15,7 @@ export const App = () => {
             <Route exact path='/posts/:id' component={ Posts }/>
             <Route exact path='/tasks' component={ Tasks }/>
             <Route exact path='/tasks/save' component={ SaveTask }/>
+            <Route exact path='/tasks/save/:userId/:task_Id' component={ SaveTask }/>
             </div>
         </BrowserRouter>
     )

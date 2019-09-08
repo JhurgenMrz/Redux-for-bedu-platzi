@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {connect}from 'react-redux';
 import * as tasksActions from '../../actions/tasksActions';
 
@@ -8,19 +8,55 @@ import {Redirect} from 'react-router-dom';
 
 function Save(props) {
 
+    useEffect(function(){
+        const {
+            match:{ params:{userId,task_Id}},
+            tasks,
+            changeInput
+        } = props
+
+        console.log(props);
+
+        if(userId && task_Id){
+            const task = tasks[userId][task_Id];
+            changeInput('user_Id',userId)
+            changeInput('title',task.title)
+            
+        }
+    },[])
+
     const changeInput=(e)=>{
         props.changeInput(e.target.name, e.target.value)
     }
 
     const saveTask= (e)=>{
-        const {user_Id, title, saveTask} =  props
+        const {
+            match:{ params:{ userId ,task_Id}},
+            tasks,
+            user_Id, 
+            title,
+            saveTask,
+            edit
+            } =  props
+        
         const newTask = {
             user_Id: user_Id,
             title: title,
             completed: false
         }
 
-        saveTask(newTask);
+        if(userId && task_Id){
+            const task = tasks[userId][task_Id]
+            const task_edited = {
+                ...newTask,
+                completed: task.completed,
+                id: task_Id
+            }
+            edit(task_edited)
+        }else{
+            saveTask(newTask);
+        }
+        
 
     }
 
@@ -49,6 +85,9 @@ function Save(props) {
 
     return (
         <div className="task-page">
+            {
+                (props.homeTask) ? <Redirect to='/tasks'/> : ''
+            }
             <h2>Save Task</h2>
             Usuario id:
             <input 

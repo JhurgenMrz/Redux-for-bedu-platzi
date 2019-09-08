@@ -44,13 +44,19 @@ const Tasks = (props) => {
                 {
                 by_User[task_Id].title
                 }
+                <button className="btn btn-edit">
+                    <Link to={`/tasks/save/${userId}/${task_Id}`}>
+                        Editar
+                    </Link>
+                </button>
+                <button className="btn btn-delete" >Eliminar</button>
             </div>
         ))
     }
 
     return (
         <div className="task-page">
-            <button>
+            <button className="btn-add">
                 <Link to='/tasks/save'>
                     Add task
                 </Link>
