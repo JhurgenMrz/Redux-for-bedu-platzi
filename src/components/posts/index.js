@@ -30,7 +30,7 @@ const Posts = (props) => {
             if(props.usersReducer.error){return}
             if(!props.usersReducer.users.length){
                 await usersGetAll()
-                console.log(props.usersReducer.users[parseInt(id-1)])
+                // console.log(props.usersReducer.users[parseInt(id-1)])
              }
             // if(!(props.usersReducer.users[parseInt(id-1)])){
             //     await postGetByUser(id);
@@ -108,7 +108,7 @@ const Posts = (props) => {
 
     return (
         <div>
-            {console.log(props)}
+            
             {putUser()}
             {putPosts()}
             

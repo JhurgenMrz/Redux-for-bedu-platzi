@@ -9,10 +9,11 @@ import Fatal from '../general/Fatal'
 const Tasks = (props) => {
 
     useEffect(()=>{
-        if(!Object.keys(props.tasks).length){
-            props.getAllTasks();
+        const {tasks, cargando, getAllTasks } = props
+        if(!Object.keys(tasks).length && !cargando){
+            getAllTasks();
         }
-    },[])
+    },[props.tasks])
     
     const showContent =()=>{
         const {tasks, cargando, error} = props;
@@ -33,14 +34,18 @@ const Tasks = (props) => {
     }
 
     const putTasks = (userId) => {
-        const {tasks} = props;
+        const {tasks, changeCheck,deleteTask} = props;
         const by_User = {
             ...tasks[userId]
         };
         
         return Object.keys(by_User).map((task_Id,index)=>(
             <div key={index}>
-                <input type='checkbox' defaultChecked={by_User[task_Id].completed} />
+                <input 
+                    onChange={()=>changeCheck(userId, task_Id)}
+                    type='checkbox' 
+                    defaultChecked={by_User[task_Id].completed
+                } />
                 {
                 by_User[task_Id].title
                 }
@@ -49,7 +54,7 @@ const Tasks = (props) => {
                         Editar
                     </Link>
                 </button>
-                <button className="btn btn-delete" >Eliminar</button>
+                <button className="btn btn-delete" onClick={()=> deleteTask(task_Id)} >Eliminar</button>
             </div>
         ))
     }

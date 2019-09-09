@@ -4,7 +4,9 @@ import {
     CARGANDO,
     ERROR,
     UPDATE_INPUTS,
-    ADDED_TASK
+    SAVE,
+    UPDATE,
+    CLEAR
     } from '../types/tasksTypes'
 
 export const getAllTasks = ()=> async (dispatch) => {
@@ -58,9 +60,8 @@ export const saveTask = (newTask)=> async (dispatch)=>{
 
     try{
         const response = await axios.post('https://jsonplaceholder.typicode.com/todos', newTask);
-        console.log(response.data);
         dispatch({
-            type: ADDED_TASK,
+            type: SAVE,
 
         })
     }catch(err){
@@ -73,6 +74,68 @@ export const saveTask = (newTask)=> async (dispatch)=>{
     
 }
 
-export const edit = (taskEdited)=>(dispatch)=>{
-    console.log(taskEdited);
+export const edit = (taskEdited)=> async (dispatch)=>{
+    dispatch({
+        type: CARGANDO,
+    }) 
+
+    try{
+        const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${taskEdited.id}`, taskEdited);
+        dispatch({
+            type: SAVE,
+        })
+    }catch(err){
+        console.log(err.message);
+        dispatch({
+            type: ERROR,
+            payload: 'Intente más tarde :D'
+        })
+    }
+}
+
+export const changeCheck = (userId, task_id) => (dispatch, getState)=>{
+    const {tasks} =  getState().tasksReducer;
+    const selected =  tasks[userId][task_id]
+    
+    const updated = {
+        ...tasks
+    };
+    updated[userId]={
+        ...tasks[userId]
+    }
+    updated[userId][task_id] = {
+        ...tasks[userId][task_id],
+        completed: !selected.completed
+    };
+
+    dispatch({
+        type: UPDATE,
+        payload: updated
+    })
+}
+
+export const deleteTask = (task_id) => async (dispatch) =>{
+    dispatch({
+        type: CARGANDO
+    })
+
+    try{
+        const response = await axios.delete(`https://jsonplaceholder.typicode.com/todos/${task_id}`)
+        dispatch({
+            type: GET_ALL_TASKS,
+            payload: {}
+        })
+    }catch(error){
+        console.log(error.message);
+        dispatch({
+            type:ERROR,
+            payload: 'Servicio no disponible'
+        })
+    }
+}
+
+export const clearForm = ()=>(dispatch)=>{
+    dispatch({
+        type: CLEAR,
+    })
 }

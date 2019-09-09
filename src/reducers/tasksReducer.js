@@ -2,8 +2,10 @@ import {
     GET_ALL_TASKS, 
     CARGANDO,
     ERROR,
-    ADDED_TASK,
-    UPDATE_INPUTS
+    UPDATE_INPUTS,
+    SAVE,
+    UPDATE,
+    CLEAR
     } from '../types/tasksTypes'
 
 const INITIAL_STATE = {
@@ -32,7 +34,7 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, error: action.payload, cargando: false};
         case UPDATE_INPUTS:
             return action.payload
-        case ADDED_TASK:
+        case SAVE:
             return {
                 ...state, 
                 tasks:{}, 
@@ -42,7 +44,10 @@ export default (state = INITIAL_STATE, action) => {
                 user_Id: '',
                 title:'',
             }
-        
+        case UPDATE:
+            return {...state, tasks: action.payload}
+        case CLEAR:
+            return {...state, user_Id: '', title: ''}
             default: return state
     }
 }

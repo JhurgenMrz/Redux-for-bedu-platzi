@@ -12,17 +12,20 @@ function Save(props) {
         const {
             match:{ params:{userId,task_Id}},
             tasks,
-            changeInput
+            changeInput,
+            clearForm
         } = props
-
-        console.log(props);
 
         if(userId && task_Id){
             const task = tasks[userId][task_Id];
             changeInput('user_Id',userId)
-            changeInput('title',task.title)
-            
+            changeInput('title',task.title)   
+        }else{
+            clearForm()
+            // changeInput('user_Id','')
+            // changeInput('title','') 
         }
+
     },[])
 
     const changeInput=(e)=>{
@@ -105,6 +108,7 @@ function Save(props) {
                 onChange={ changeInput}
                 /> <br/><br/>
             <button
+                className="btn-add"
                 onClick={ saveTask}
                 disabled={disable()}
             >Save</button>
